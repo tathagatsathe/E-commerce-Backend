@@ -1,36 +1,33 @@
 <template>
-<div>
-  <header>
-    <div>
-      <Header />
-    </div>
-  </header>
-  <body>
-    <div>
-      <Navbar />
-    </div>
-    <div class ="row">
-      <div class="col1">
+  <div>
+    <header>
+      <div>
+        <Header />
       </div>
-      <div class="col2">
-        <div class="rowc1">
-        </div>
-        <div class="rowc2">
+    </header>
+    <body>
+      <div>
+        <Navbar />
+      </div>
+      <div class="row">
+        <div class="col1" />
+        <div class="col2">
+          <div class="rowc1" />
+          <div class="rowc2" />
         </div>
       </div>
-    </div>
-  </body>
+    </body>
     <!-- <div>
       <footer>
         <Footer />
       </footer>
     </div> -->
-</div>
+  </div>
 </template>
 
 <script>
-import Navbar from 'c:/Users/703269701/ecom-mul/src/components/Navbar.vue'
-import Header from 'c:/Users/703269701/ecom-mul/src/components/Header.vue'
+import Navbar from '@/components/Navbar.vue'
+import Header from '@/components/Header.vue'
 // import Footer from 'c:/Users/703269701/ecom-mul/vue-mpa-application-example/src/components/Footer.vue'
 
 export default {

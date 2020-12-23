@@ -1,77 +1,107 @@
 <template>
-<div>
-  <header>
-  <div class="hea">
-      <Header />
-  </div>
-  </header>
-  <body>
-    <div id="app">
-    <Navbar />
-  </div>
-  <div id = "slid">
-    <Slider />
-  </div>
-  <div class= "row">
-    <div class= "column">
-      <img class= "ad1" src= 'https://images.freekaamaal.com/post_images/1578392330.png' style="width:100%; height:400px;">
-    </div>
-    <div class= "column">
-      <img class= "ad2" src='https://d3nuqriibqh3vw.cloudfront.net/images/primewatch1.jpg' style="width:100%; height:400px;">
-    </div>
-    <div class= "column">
-      <img class="ad3" src='https://images.freekaamaal.com/post_images/1578392330.png' style="width:100%; height:400px;">
-    </div>
-  </div>
-  <div class="row2">
-    <div class="column1">
-      <img class="ad4" src='https://d3nuqriibqh3vw.cloudfront.net/images/primewatch1.jpg' style="width:100%; height:400px;">
-    </div>
-    <div class="column1">
-      <img class="ad5" src='https://d3nuqriibqh3vw.cloudfront.net/images/primewatch1.jpg' style="width:100%; height:400px;">
-    </div>
-  </div>
-  <div class="row3">
-    <div class="column2">
-      <img class="ad4" src='https://d3nuqriibqh3vw.cloudfront.net/images/primewatch1.jpg' style="width:100%; height:300px;">
-    </div>
-    <div class="column2">
-      <img class="ad5" src='https://d3nuqriibqh3vw.cloudfront.net/images/primewatch1.jpg' style="width:100%; height:300px;">
-    </div>
-    <div class="column2">
-      <img class="ad5" src='https://d3nuqriibqh3vw.cloudfront.net/images/primewatch1.jpg' style="width:100%; height:300px;">
-    </div>
-    <div class="column2">
-      <img class="ad5" src='https://d3nuqriibqh3vw.cloudfront.net/images/primewatch1.jpg' style="width:100%; height:300px;">
-    </div>
-    <div class="column2">
-      <img class="ad5" src='https://d3nuqriibqh3vw.cloudfront.net/images/primewatch1.jpg' style="width:100%; height:300px;">
-    </div>
-    <div class="column3">
-      <img class="ad4" src='https://d3nuqriibqh3vw.cloudfront.net/images/primewatch1.jpg' style="width:100%; height:400px;">
-    </div>
-  </div>
-  </body>
+  <div>
+    <header>
+      <div class="hea">
+        <Header />
+      </div>
+    </header>
+    <body>
+      <div id="app">
+        <Navbar />
+      </div>
+      <div id="slid">
+        <Slider />
+      </div>
+      <div class="row">
+        <div class="column">
+          <img
+            class="ad1"
+            src="https://images.freekaamaal.com/post_images/1578392330.png"
+            style="width:100%; height:400px;"
+          >
+        </div>
+        <div class="column">
+          <img
+            class="ad2"
+            src="https://d3nuqriibqh3vw.cloudfront.net/images/primewatch1.jpg"
+            style="width:100%; height:400px;"
+          >
+        </div>
+        <div class="column">
+          <img
+            class="ad3"
+            src="https://images.freekaamaal.com/post_images/1578392330.png"
+            style="width:100%; height:400px;"
+          >
+        </div>
+      </div>
+      <div class="row2">
+        <div class="column1">
+          <img
+            class="ad4"
+            src="https://d3nuqriibqh3vw.cloudfront.net/images/primewatch1.jpg"
+            style="width:100%; height:400px;"
+          >
+        </div>
+        <div class="column1">
+          <img
+            class="ad5"
+            src="https://d3nuqriibqh3vw.cloudfront.net/images/primewatch1.jpg"
+            style="width:100%; height:400px;"
+          >
+        </div>
+      </div>
+      <div class="row3">
+        <div
+          v-for="product in products"
+          :key="product.id"
+          class="column2"
+        >
+          {{ product.name }}
+          <br>
+          {{ product.category }}
+          <img
+            class="ad4"
+            src="product.image"
+            style="width:100%; height:300px;"
+          >
+        </div>
+        <div class="column3">
+          <img
+            class="ad4"
+            src="https://d3nuqriibqh3vw.cloudfront.net/images/primewatch1.jpg"
+            style="width:100%; height:400px;"
+          >
+        </div>
+      </div>
+    </body>
     <div class="Footer">
       <footer>
         <Footer />
       </footer>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
-import Header from 'c:/Users/703269701/ecom-mul/src/components/Header.vue'
-import Footer from 'c:/Users/703269701/ecom-mul/src/components/Footer.vue'
-import Navbar from 'c:/Users/703269701/ecom-mul/src/components/Navbar.vue'
-import Slider from 'c:/Users/703269701/ecom-mul/src/components/Slider.vue'
+import Header from '@/components/Header.vue'
+import Footer from '@/components/Footer.vue'
+import Navbar from '@/components/Navbar.vue'
+import Slider from '@/components/Slider.vue'
+import products from '@/assets/data/products.json'
+
 export default {
-  name: 'app',
+  name: 'App',
   components: {
     Header,
     Navbar,
     Slider,
     Footer
+  },
+  data () {
+    return {
+      products: products
+    }
   }
 }
 </script>
