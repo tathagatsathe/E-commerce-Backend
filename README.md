@@ -1,10 +1,4 @@
-# Building a MPA application
 
-Look at the code, it's pretty easier.
-
-The most important part, is the `vue.config.js`.
-
-At dev env, you could install `nodemon` to watch changes in your `vue.config.js`.
 
 ## Project setup
 
