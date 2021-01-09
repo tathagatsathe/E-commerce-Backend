@@ -19,7 +19,10 @@
             >
               <strong>{{ product.ProductName }}</strong>
             </h2>
-            <a style="font-size:15px">&#8377; <a style="text-decoration:line-through">{{ product.OriginalPrice }}</a></a>
+            <a
+              v-if="Number(product.MRP)"
+              style="font-size:15px"
+            ><a style="text-decoration:line-through">&#8377; {{ product.MRP }}</a></a>
             <h3> &#8377; {{ product.Price }}</h3>
             <a>Rating: {{ product.Rating }}</a><br>
             <!-- <p style="color:black; font-size:20px;">{{product.Category}}</p> -->
@@ -37,19 +40,19 @@
               @click="addtocart"
             >
               Add to Cart
-            </button><div style="float:left;">
-              <b-form-spinbutton
-                id="sb-vertical"
-                v-model="value"
-                size="sm"
-                vertical
-              />
+            </button>
+            <div style="float:left;">
+              <input
+                v-model="counter"
+                type="number"
+                style="width:20%;margin-top:20%;"
+              >
             </div>
             <a v-if="this.addedtocart === 'Added to Cart'">Added to Cart</a>
           </div>
         </div>
         <div class="details">
-          <strong>Details</strong><br>
+          <strong>About this Item</strong><br>
           {{ product.Description }}
         </div>
       </div>
@@ -59,9 +62,7 @@
 </template>
 
 <script>
-// import products from '@/assets/data/products.json'
 import AuthenticationService from '@/services/AuthenticationService'
-// import router from '../router'
 
 export default {
   name: 'PrDetails',

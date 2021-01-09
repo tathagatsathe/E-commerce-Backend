@@ -45,7 +45,7 @@ app.get('/', (req,res,next) => {
         } else {
             // console.log(results)
             // res.json(results)
-            var sq = 'SELECT * FROM prod WHERE Category LIKE "%"?"%" LIMIT 4'
+            var sq = 'SELECT * FROM prod WHERE Category LIKE "%"?"%" LIMIT 10'
             connection.query(sq,'Watches', function(err, result, fields) {
             if(err) {
                 throw err
@@ -172,12 +172,11 @@ app.post('/addproduct',(req,res) =>{
         "user_id": req.body.id,
         "ProductName": req.body.ProductName,
         "Price": req.body.Price,
-        "OriginalPrice": req.body.OriginalPrice,
+        "MRP": req.body.MRP,
         "Category": req.body.Category,
         "Image": req.body.PrImage,
         "Description": req.body.Description
     }
-    console.log(req.body.PrImage)
     connection.query(sq, product,async function(err, result, fields){
         if (err){
             throw err
@@ -198,17 +197,39 @@ app.post('/productdetails/:id',(req,res) =>{
         Prod_Image: req.body.image,
         quantity: req.body.quantity
     }
-    console.log(req.body)
-    console.log(req.body.Price)
-    var sq = 'INSERT INTO cart SET ?';
-    connection.query(sq, cart_param, function(err, result, fields) {
+    var a = -1 
+    var sl = 'SELECT * FROM cart WHERE cust_id = ? AND prod_id = ?'
+    connection.query(sl, [cart_param.cust_id, cart_param.prod_id], function(err, result, fields) {
         if (err){
-            throw err
-        }
-        else {
-            console.log(result.insertId)
-            console.log('cart')
-        }
+            console.log('err')
+        } else {
+            this.a = result.length
+            if (this.a>0) {
+                var s = 'UPDATE cart SET quantity = quantity + ? WHERE cust_id = ? AND prod_id = ?'
+                connection.query(s, [cart_param.quantity, cart_param.cust_id, cart_param.prod_id], function(err, result, fields) {
+                    if (err){
+                        console.log('err')
+                        this.a = 'err'
+                    }
+                    else {
+                        this.a = result.insertId
+                        console.log('update cart')
+                        // res.sendStatus(200)
+                    }
+                })
+            } else if (this.a == 0){
+                var sq = 'INSERT INTO cart SET ?';
+                connection.query(sq, cart_param, function(err, result, fields) {
+                    if (err){
+                        throw err
+                    }
+                    else {
+                        console.log('product inserted in cart')
+                        // res.sendStatus(200)
+                    }
+                })
+            }
+            }
     })
 })
 app.get('/productdetails/:id',(req,res) =>{
@@ -220,7 +241,7 @@ app.get('/productdetails/:id',(req,res) =>{
             throw err
         } else {
             res.json(result[0])
-            console.log(result[0])
+            // console.log(result[0])
         }
     })
 })

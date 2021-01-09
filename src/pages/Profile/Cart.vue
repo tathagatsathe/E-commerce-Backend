@@ -24,8 +24,11 @@
               &#8377; {{ product.price }}<br>
             </div>
           </router-link>
-          <div style="font-size:80%;line-height:10px;float:right;">
-            <a @click="removefromcart(product.cart_id)">Remove from Cart</a>
+          <div style="font-size:80%;line-height:10px;">
+            <a style="float:left;">Quantity: {{ product.quantity }}</a><a
+              style="float:right;"
+              @click="removefromcart(product.cart_id)"
+            >Remove from Cart</a>
           </div>
           <br>
         </div>

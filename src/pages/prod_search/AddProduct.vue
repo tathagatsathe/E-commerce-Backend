@@ -15,16 +15,16 @@
         placeholder="Name of Product"
       ><br>
       <input
-        v-model="OriginalPrice"
+        v-model="MRP"
         type="int"
-        name="OriginalPrice"
-        placeholder="Original Price"
+        name="MRP"
+        placeholder="MRP"
       ><br>
       <input
         v-model="Price"
         type="int"
         name="price"
-        placeholder="Price at which you want to sell..."
+        placeholder="Deal Price"
       ><br>
       <input
         v-model="Category"
@@ -58,7 +58,7 @@
         v-if="error==='Product Added'"
         @click="refresh()"
       >
-        <button style="font-size=10px;color:white;">
+        <button style="font-size=3px;color:white;width:25%;">
           Add another product
         </button>
       </div>
@@ -74,7 +74,7 @@ export default {
     return {
       Product: '',
       Price: '',
-      OriginalPrice: '',
+      MRP: null,
       Category: '',
       PrImage: '',
       Description: '',
@@ -87,7 +87,7 @@ export default {
         id: localStorage.getItem('id'),
         ProductName: this.Product,
         Price: this.Price,
-        OriginalPrice: this.OriginalPrice,
+        MRP: this.MRP,
         Category: this.Category,
         PrImage: this.PrImage,
         Description: this.Description

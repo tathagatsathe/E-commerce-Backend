@@ -99,6 +99,36 @@
             </div>
           </div>
         </div>
+        <strong><a style="margin-left:1%; font-size:25px;"> Watches </a></strong>
+        <div
+          class="scrolling-wrapper"
+          style="height:350px;margin-bottom:50px;margin-left:1%;"
+        >
+          <div
+            v-for="product in watches"
+            :key="product.prod_id"
+            class="card"
+            style="height:90%;width:20%;margin-top: 1%;margin-right:1.5%;"
+          >
+            <router-link
+              :to="'/productdetails/' + product.prod_id"
+              style="color:black;"
+            >
+              <div style="height:70%;">
+                <img
+                  :src="product.Image"
+                  style="height:100%;width:auto; display:block; margin-right:auto; margin-left:auto;"
+                >
+              </div>
+              <div style="height:15%;overflow:hidden;padding: 0px 5px;white-space: nowrap;">
+                <a><b>{{ product.ProductName }}</b></a>
+              </div>
+              <div style="height:15%;padding:0px 5px;">
+                &#8377; {{ product.Price }}
+              </div>
+            </router-link>
+          </div>
+        </div>
       </div>
     </body>
   </div>
@@ -129,22 +159,42 @@ export default {
   methods: {
     async ads () {
       const response = await AuthenticationService.home()
-      console.log(response.data)
+      // console.log(response.data)
+      this.products = response.data
       this.mobiles = response.data.slice(0, 5)
-      this.watches = response.data.slice(5, 9)
-      this.furniture = response.data.slice(9, 13)
+      this.furniture = response.data.slice(16, 19)
+      this.products.forEach(element => {
+        if (element.Category === 'Watches') {
+          if (element.Category === 'Watches') {
+            this.watches.push(element)
+          }
+        }
+      })
+      console.log(this.watches)
     }
   }
 }
 </script>
 
 <style>
+.scrolling-wrapper::-webkit-scrollbar {
+    display: none;
+}
+.scrolling-wrapper {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+.card {
+  display: inline-block;
+  box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  vertical-align: center;
+}
 /* * { */
   /* margin: 0; */
   /* padding: 0; */
   /* box-sizing: border-box; */
 /* } */
-
 body {
   font-family: 'montserrat', sans-serif;
   margin: 0px;

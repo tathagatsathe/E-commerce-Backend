@@ -46,9 +46,11 @@
                     <strong>{{ product.ProductName }}</strong>
                   </h2>
                   <br>
-                  <a style="font-size:15px">&#8377; <a style="text-decoration:line-through">{{ product.OriginalPrice }}</a></a>
-                  <br>
-                  &#8377; {{ product.Price }}
+                  <a
+                    v-if="Number(product.MRP)"
+                    style="font-size:15px"
+                  ><a style="text-decoration:line-through">&#8377; {{ product.MRP }}<br></a></a>
+                  <a>&#8377; {{ product.Price }}</a>
                   <br>
                   Rating: {{ product.Rating }}
                 </div>
