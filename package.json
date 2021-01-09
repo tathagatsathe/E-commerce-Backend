@@ -4,15 +4,24 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --dest build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "async": "^3.2.0",
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.21.0",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mysql": "^2.18.1",
+    "path": "^0.12.7",
+    "regenerator-runtime": "^0.13.7",
     "vue": "^2.6.12",
     "vue-dynamic-dropdown": "^1.0.12",
+    "vue-router": "^3.4.9",
     "vuex": "^3.4.0"
   },
   "devDependencies": {

@@ -1,19 +1,34 @@
 <template>
   <nav>
-    <Dropdown title="Categories" :items="services" />
-    <div class="menu-item"><a href="#">Electronics</a></div>
-    <div class="menu-item"><a href="#">Clothing</a></div>
-    <div class="menu-item"><a href="#">Watches</a></div>
-    <div class="menu-item"><a href="#">Best Deals</a></div>
-    <div class="menu-item"><a href="#">Blog</a></div>
-    <div class="menu-item"><a href="#">New Arrivals</a></div>
+    <Dropdown
+      title="Categories"
+      :items="services"
+    />
+    <div class="menu-item">
+      <a href="/productsearch?search=Electronics">Electronics</a>
+    </div>
+    <div class="menu-item">
+      <a href="/productsearch?search=Clothing">Clothing</a>
+    </div>
+    <div class="menu-item">
+      <a href="/productsearch?search=Watches">Watches</a>
+    </div>
+    <div class="menu-item">
+      <a href="/productsearch?search=Furniture">Furniture</a>
+    </div>
+    <div class="menu-item">
+      <a href="/productsearch?search=Grocery">Grocery</a>
+    </div>
+    <div class="menu-item">
+      <a href="/productsearch?search=Mobiles">Mobiles</a>
+    </div>
   </nav>
 </template>
 
 <script>
 import Dropdown from './Dropdown'
 export default {
-  name: 'navbar',
+  name: 'Navbar',
   components: {
     Dropdown
   },
@@ -22,23 +37,23 @@ export default {
       services: [
         {
           title: 'Furniture',
-          link: '#'
+          link: '/productsearch?search=Furniture'
         },
         {
           title: 'Grocery',
-          link: '#'
+          link: '/productsearch?search=Grocery'
         },
         {
           title: 'Mobiles',
-          link: '#'
+          link: '/productsearch?search=Mobiles'
         },
         {
           title: 'Watches',
-          link: '#'
+          link: '/productsearch?search=Watches'
         },
         {
           title: 'Home and Furniture',
-          link: '#'
+          link: '/productsearch?search=Home+and+Furniture'
         }
       ]
     }
@@ -65,7 +80,7 @@ nav .menu-item {
 }
 nav .menu-item.active,
 nav .menu-item :hover {
-  background-color: #444;
+  /* background-color: rgb(255, 0, 0); */
   border-bottom-color: #FF5858;
 }
 nav .menu-item a {

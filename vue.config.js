@@ -18,11 +18,31 @@ module.exports = {
       title: 'Create-Account',
       chunks: [ 'chunk-vendors', 'chunk-common', 'create-account' ]
     },
-    'profile': {
-      entry: './src/pages/Profile/main.js',
+    // 'profile': {
+    //   entry: './src/pages/Profile/profile.js',
+    //   template: 'public/index.html',
+    //   title: 'Profile',
+    //   chunks: [ 'chunk-vendors', 'chunk-common', 'profile' ]
+    // },
+    'prod_search': {
+      entry: './src/pages/prod_search/main.js',
       template: 'public/index.html',
-      title: 'Profile',
-      chunks: [ 'chunk-vendors', 'chunk-common', 'profile' ]
+      title: 'Prod_Search',
+      chunks: [ 'chunk-vendors', 'chunk-common', 'prod_search' ]
+    },
+    'prod_details': {
+      entry: './src/pages/prod_details.js',
+      template: 'public/index.html',
+      title: 'Prod_Details',
+      chunks: [ 'chunk-vendors', 'chunk-common', 'prod_details' ]
+    }
+  },
+  devServer: {
+    proxy: {
+      '^/api': {
+        target: 'http://localhost:3080',
+        changeOrigin: true
+      }
     }
   }
 }

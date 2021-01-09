@@ -1,39 +1,112 @@
 <template>
   <div class="oneline">
     <div class="e-commerce">
-      <strong><a href="index.html" style="color:white; text-decoration:none;">E-commerce</a></strong>
+      <strong><router-link to="/"><a
+        style="color:white; text-decoration:none; width:20%"
+      >E-commerce</a></router-link></strong>
     </div>
-    <div class="searchbar">
-      <input type="text" placeholder="Search...">
-    </div>
+    <form
+      action="/productsearch"
+      method="get"
+    >
+      <div class="searchbar">
+        <input
+          id="search"
+          type="text"
+          name="search"
+          placeholder="Search..."
+          style="width:600px"
+        >
+      </div>
+    </form>
     <div class="icons">
-      <div><a><Dropdown title="Profile" :items="services"/></a></div>
-      <!-- <a href="sign-in.html" style="color:white"> Profile</a> -->
-      <div id="cv"><a href="create-account.html" style="color:white"> Wishlist </a></div>
-      <div id="cv"><a href="profile.html" style="color:white"> Cart </a></div>
+      <b-nav>
+        <b-nav-item-dropdown
+          text="Account"
+          right
+        >
+          <div v-if="si == 'true'">
+            <b-dropdown-item>
+              <router-link to="/profile">
+                <a style="color:black; text-decoration:none;">
+                  Profile
+                </a>
+              </router-link>
+            </b-dropdown-item>
+            <b-dropdown-item>
+              <router-link to="/profile/addproduct">
+                <a style="color:black; text-decoration:none;">
+                  Sell
+                </a>
+              </router-link>
+            </b-dropdown-item>
+            <b-dropdown-item>
+              <a
+                style="color:black"
+                @click="logout"
+              >
+                Sign-Out
+              </a>
+            </b-dropdown-item>
+          </div>
+          <div v-else>
+            <b-dropdown-item>
+              <router-link to="/login">
+                <a style="color:black">
+                  Sign-In
+                </a>
+              </router-link>
+            </b-dropdown-item>
+            <b-dropdown-item>
+              <router-link to="/register">
+                <a style="color:black">
+                  Create Account
+                </a>
+              </router-link>
+            </b-dropdown-item>
+          </div>
+        </b-nav-item-dropdown>
+        <b-nav-item>
+          <router-link :to="this.cart">
+            <a style="color:white;">Cart</a>
+          </router-link>
+        </b-nav-item>
+        <b-nav-item>
+          <router-link :to="this.order">
+            <a style="color:white">Orders</a>
+          </router-link>
+        </b-nav-item>
+      </b-nav>
     </div>
   </div>
 </template>
 
 <script>
-import Dropdown from './Dropdown'
+// import AuthenticationService from '@/services/AuthenticationService'
 export default {
-  name: 'header',
-  components: {
-    Dropdown
-  },
+  name: 'Header',
   data () {
     return {
-      services: [
-        {
-          title: 'Sign-In',
-          link: 'sign-in.html'
-        },
-        {
-          title: 'Create an Account',
-          link: 'create-account.html'
-        }
-      ]
+      si: localStorage.getItem('loggedin'),
+      cart: '/profile/cart',
+      order: '/profile/orders'
+    }
+  },
+  mounted () {
+    this.wishl_order()
+  },
+  methods: {
+    logout () {
+      console.log('hello')
+      localStorage.clear()
+      this.$router.push('/')
+      this.$router.go()
+    },
+    wishl_order () {
+      if (!localStorage.getItem('loggedin')) {
+        this.wishl = '/login'
+        this.order = '/login'
+      }
     }
   }
 }
@@ -45,40 +118,47 @@ export default {
   width: 100%;
   background-color: rgb(0, 0, 0);
   height: 60px;
-}
-.e-commerce {
-  position: absolute;
-  color: white;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 30px;
-  padding: 10px 0px 0px 30px;
-  width: 20%;
-  float: left;
-}
-.searchbar input[type=text]{
-  position: absolute;
-  border: none;
-  padding: 6px;
-  margin: 16px 16px 0px 350px;
-  border-radius: 7px;
-  width: 40%;
-  align-content: center;
-}
-.icons{
-  position: absolute;
-  /* margin-right: 40px; */
-  margin: 25px 15px 0px 1000px;
-  color: white;
-  font-size: 17px;
-  width: 25%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  /* float:right; */
+  float: left;
 }
-.icons a{
+.e-commerce {
   color: white;
-  position: relative;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: auto;
+  width: 25%;
+  float: left;
+  display: flex;
 }
-
+.e-commerce a {
+  color: white;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 30px;
+  text-decoration: none;
+  /* display: inline-block; */
+}
+.searchbar input[type=text]{
+  border: none;
+  padding: 7px;
+  margin-top: 10px;
+  border-radius: 7px;
+  align-content: center;
+  width: 50%;
+  /* float: left; */
+  display: inline-block;
+}
+.searchbar:focus {
+  min-width: 500px;
+  width: auto;
+}
+/* .icons{
+  color: white;
+  width: 25%;
+  justify-content: space-evenly;
+  float: right;
+} */
+a{
+  color: white;
+}
 </style>
