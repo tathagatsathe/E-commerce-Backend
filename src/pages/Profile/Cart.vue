@@ -33,7 +33,7 @@
           <br>
         </div>
         <button @click="buy">
-          Buy
+          Place Order
         </button>
       </div>
     </body>
