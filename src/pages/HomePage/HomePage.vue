@@ -8,7 +8,26 @@
         <Carousel />
       </div> -->
       <div class="ads">
-        <div class="row">
+        <div class="containr">
+          <div
+            v-for="product in watches.slice(0,3)"
+            :key="product.prod_id"
+            class="containr-box"
+            style="width:31%"
+          >
+            <router-link
+              :to="'/productdetails/' + product.prod_id"
+              style="color:black"
+            >
+              <img :src="product.Image">
+              <h2 style="font-size:15px;padding: 2px 5px">
+                <b>{{ product.ProductName|truncate }}</b>
+              </h2>
+              <a style="font-size:15px;padding: 2px 5px">&#8377; {{ product.Price }} </a>
+            </router-link>
+          </div>
+        </div>
+        <!-- <div class="row">
           <div
             v-for="product in watches.slice(0,3)"
             :key="product.prod_id"
@@ -27,8 +46,8 @@
                 &#8377; {{ product.Price }}</a>
             </router-link>
           </div>
-        </div>
-        <div class="row2">
+        </div> -->
+        <!-- <div class="row2">
           <div
             v-for="product in furniture.slice(1,3)"
             :key="product.id"
@@ -47,11 +66,48 @@
                 &#8377; {{ product.Price }}</a>
             </router-link>
           </div>
+        </div> -->
+        <strong><a style="margin-left:1%; font-size:25px;">Furniture</a></strong><br>
+        <div class="containr">
+          <div
+            v-for="product in furniture.slice(1,3)"
+            :key="product.prod_id"
+            class="containr-box"
+            style="width:48%"
+          >
+            <router-link
+              :to="'/productdetails/' + product.prod_id"
+              style="color:black"
+            >
+              <img :src="product.Image">
+              <h2 style="font-size:15px;padding: 2px 5px">
+                <b>{{ product.ProductName|truncate }}</b>
+              </h2>
+              <a style="font-size:15px;padding: 2px 5px">&#8377; {{ product.Price }} </a>
+            </router-link>
+          </div>
         </div>
-        <div
-          class="row3"
-          style="width:100%"
-        >
+        <strong><a style="margin-left:1%; font-size:25px;">Mobiles</a></strong><br>
+        <div class="containr">
+          <div
+            v-for="product in mobiles"
+            :key="product.prod_id"
+            class="containr-box"
+            style="width:18%;"
+          >
+            <router-link
+              :to="'/productdetails/' + product.prod_id"
+              style="color:black"
+            >
+              <img :src="product.Image">
+              <h2 style="font-size:15px;padding: 2px 5px">
+                <b>{{ product.ProductName|truncate }}</b>
+              </h2>
+              <a style="font-size:15px;padding: 2px 5px">&#8377; {{ product.Price }} </a>
+            </router-link>
+          </div>
+        </div>
+        <!-- <div class="row3" style="width:100%">
           <div
             v-for="product in mobiles"
             :key="product.prod_id"
@@ -71,7 +127,7 @@
                 &#8377; {{ product.Price }}</a>
             </router-link>
           </div>
-        </div>
+        </div> -->
         <div class="column3">
           <div
             v-for="product in watches.slice(3,4)"
@@ -145,6 +201,14 @@ export default {
   components: {
     Slider
   },
+  filters: {
+    truncate: function (value) {
+      if (value && value.length > 50) {
+        value = value.substring(0, 50) + '...'
+      }
+      return value
+    }
+  },
   data () {
     return {
       products: products,
@@ -177,6 +241,22 @@ export default {
 </script>
 
 <style>
+ .containr{
+  display: flex;
+  justify-content: space-around;
+  height: 300px;
+  margin: 20px 0;
+}
+.containr-box {
+  padding: 4px;
+  box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.containr-box img {
+  height: 70%;
+  display: block;
+  width: auto;
+  margin: auto;
+}
 .scrolling-wrapper::-webkit-scrollbar {
     display: none;
 }
@@ -213,29 +293,11 @@ body {
   color: #2c3e50;
   margin-top: 5px;
   height: 450px;
-  margin-bottom: 5px;
+  margin-bottom: 50px;
 }
 /* .column {
   float: left;
-  width: 32% !important;
-  padding: 10px !important;
-  margin: 15px 5px 15px 5px;
-  box-shadow:0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
-}
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
-  position: relative;
-} */
-.column {
-  float: left;
-  /* padding: 10px !important; */
   width: 31% !important;
-  /* border: 1px solid black; */
-  /* box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
-  /* margin-right: 5px; */
-  /* margin: 3px 20px 5px 0px; */
   margin: 15px 5px 15px 17px;
   margin-bottom: 20px;
   height: 300px;
@@ -257,12 +319,7 @@ body {
 }
 .column1 {
   float: left;
-  /* padding: 10px !important; */
   width: 47.5% !important;
-  /* border: 1px solid black; */
-  /* box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
-  /* margin-right: 5px; */
-  /* margin: 3px 20px 5px 0px; */
   margin: 15px 5px 15px 18px;
   margin-bottom: 20px;
   height: 300px;
@@ -302,12 +359,11 @@ body {
   clear: both;
   display: table;
   position: relative;
-}
-
+} */
 .column3 {
   width: 97.3% !important;
   box-shadow:0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
-  margin: 10px 5px 50px 18px;
+  margin: 50px 5px 50px 18px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
   height: 300px;
@@ -315,7 +371,6 @@ body {
 .column3 img {
   margin: 0px auto;
   display: block;
-  /* float: left; */
 }
 .column3 a{
   font-size: 30px;
@@ -323,6 +378,5 @@ body {
   float: left;
   width: 50%;
   height: 100%;
-  /* border: 1px solid red; */
 }
 </style>
