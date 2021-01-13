@@ -1,68 +1,64 @@
 <template>
   <div>
     <body>
-      <router-link to="/profile/orders">
-        <div class="profrowc1">
-          <div
-            class="c_orders2"
-            style="font-size:20px"
-          >
-            <strong>Orders</strong>
+      <div class="profrowc1">
+        <router-link to="/profile/cart">
+          <div class="wish">
+            <strong style="font-size:20px">Orders</strong>
           </div>
+        </router-link>
+        <div
+          v-for="order in products.slice(3,6)"
+          :key="order.order_id"
+          class="orderrows"
+        >
+          <router-link :to="'/orders/' + order.order_id">
+            <div
+              class="ordertextarea"
+              style="font-size:15px; color:black; height:80%; width:100%;"
+            >
+              <h11>Ordered on: <strong>{{ order.order_date }}</strong></h11><br>
+              <h8>Id: <strong>{{ order.order_id }}</strong></h8><br>
+              <h7>Order total: <strong>{{ order.TotalCost }}</strong></h7><br>
+              <h9>Shipping Address: <strong>{{ order.shipping_add }}</strong></h9><br>
+            </div>
+          </router-link>
         </div>
-      </router-link>
-      <router-link to="/profile/cart">
-        <div class="profrowc2">
+      </div>
+      <div class="profrowc2">
+        <router-link to="/profile/cart">
           <div class="wish">
             <strong style="font-size:20px">Cart</strong>
           </div>
-          <!-- <div v-for="product in products.slice(0,3)" :key="product.id" class="profprows">
-                <img :src="product.image" style="width: 100%" >
-                <div class="profptext">
-                  <strong style="font-size:20px;color:black;">{{ product.name }}</strong><br>
-                  <a style="font-size:15px;color:black;">{{ product.price }}</a>
-                </div>
-              </div> -->
+        </router-link>
+        <div
+          v-for="product in products.slice(0,3)"
+          :key="product.prod_id"
+          class="profprows"
+        >
+          <router-link
+            :to="'/productdetails/' + product.prod_id"
+            style="color:black;"
+          >
+            <img :src="product.Prod_Image">
+            <div class="profptext">
+              <strong>{{ product.Prod_Name }}</strong><br>
+              <a>&#8377; {{ product.price }}</a>
+            </div>
+          </router-link>
         </div>
-      </router-link>
+      </div>
     </body>
-    <!-- <a style="font-size:40px; color:black;">HOME</a>
-        <body style="border:4px solid red">
-          <router-link to='/profile/orders'>
-            <div class="profrowc1">
-                <div class="c_orders1">
-                </div>
-                <div class="c_orders2" style="font-size:20px">
-                <strong>Orders</strong>
-                </div>
-            </div>
-          </router-link>
-          <router-link to='/profile/wishlist'>
-            <div class="profrowc2">
-              <div class="wish">
-                <strong style="font-size:20px">Wishlist</strong>
-              </div>
-              <div v-for="product in products.slice(0,3)" :key="product.id" class="profprows">
-                <img :src="product.image" style="width: 100%" >
-                <div class="profptext">
-                  <strong style="font-size:20px;color:black;">{{ product.name }}</strong><br>
-                  <a style="font-size:15px;color:black;">{{ product.price }}</a>
-                </div>
-              </div>
-            </div>
-          </router-link>
-        </body> -->
   </div>
 </template>
 <script>
-import products from '@/assets/data/products.json'
-// import AuthenticationService from '@/services/AuthenticationService'
+import AuthenticationService from '@/services/AuthenticationService'
 
 export default {
   name: 'ProfileHome',
   data () {
     return {
-      products: products,
+      products: [],
       userinfo: [ {
         'FirstName': localStorage.getItem('FirstName'),
         'LastName': localStorage.getItem('LastName'),
@@ -71,6 +67,21 @@ export default {
         'City': localStorage.getItem('City'),
         'username': localStorage.getItem('username')
       }]
+    }
+  },
+  mounted () {
+    this.si = localStorage.getItem('loggedin')
+    this.info()
+  },
+  methods: {
+    async info () {
+      const response = await AuthenticationService.info({
+        id: localStorage.getItem('id')
+      })
+      // console.log(response.data)
+      this.products = response.data
+      console.log(this.products.slice(0, 5))
+      console.log(this.products.slice(5, 8))
     }
   }
 }
@@ -121,30 +132,39 @@ body {
 .profrowc1 {
   border: 1px solid rgb(139, 135, 135);
   width: 100%;
-  height: 300px;
-  display: inline-block;
+  height: 300px !important;
   margin: 5px;
   padding: 10px 10px 0px 10px;
 }
 .profrowc2 {
-  border: 1px solid rgb(139, 135, 135);
   width: 100%;
   height: 300px;
-  display: inline-block;
   margin: 5px;
+}
+.orderrows {
+  height: 70%;
+  padding: 30px 10px;
+  width:30%;
+  float:left;
+  margin:10px 5px 5px 20px;
+  overflow:hidden;
+  box-shadow:0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 .profprows{
   width: 30%;
+  height: 80%;
   float: left;
   padding: 10px;
   padding-bottom: 5px;
-  /* border: 1px solid black; */
   margin-left: 20px;
   box-shadow:0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 .profprows img {
-  height: 180px;
+  height: 70%;
   /* width: 40%; */
+  width: auto;
+  margin: auto;
+  display: block;
   border-radius: 0px;
 }
 .c_orders1 {
@@ -161,7 +181,19 @@ body {
   padding-left: 50px;
 }
 .profptext {
-  padding-left: 10px;
+  height: 30%;
+  /* border: 1px solid green; */
+}
+.profptext strong {
+  display: block;
+  /* border-bottom: 1px solid rgb(133, 133, 133); */
+  height: 70%;
+  overflow: hidden;
+}
+.profptext a {
+  display: block;
+  /* border: 1px solid blue; */
+  margin-top: -25px;
 }
 .profinfo {
   margin-top: 20px;

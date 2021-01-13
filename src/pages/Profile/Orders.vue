@@ -13,10 +13,10 @@
             class="c_orders2"
             style="font-size:20px"
           >
-            <h11>Ordered on: {{ order.order_date }}</h11><br>
-            <h8> Order Id: {{ order.order_id }} </h8><br>
-            <h9>Shipping Address: {{ order.shipping_add }}</h9><br>
-            <h7>Order total: {{ order.TotalCost }}</h7><br>
+            <h11>Ordered on: <strong>{{ order.order_date }}</strong></h11><br>
+            <h8>Id: <strong>{{ order.order_id }}</strong></h8><br>
+            <h7>Order total: <strong>{{ order.TotalCost }}</strong></h7><br>
+            <h9>Shipping Address: <strong>{{ order.shipping_add }}</strong></h9><br>
           </div>
         </router-link>
       </div>
@@ -59,8 +59,7 @@ export default {
   height: 200px;
   /* display: inline-block; */
   margin: 5px;
-  /* padding: 5px 20px; */
-  /* padding: 10px 10px 0px 10px; */
+  padding: 5px 20px;
 }
 .c_orders1 {
   width: 30%;

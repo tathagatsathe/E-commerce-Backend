@@ -43,20 +43,6 @@
               <a style="color:black;font-size:20px;">Edit Profile</a>
             </router-link>
           </div>
-          <!-- <div class= 'inf' style="font-size:50px">
-            {{us.Name}}
-            <br>
-            {{us.username}}
-            <br>
-            {{us.Phone}}
-            <br>
-            {{us.address}}
-            <br>
-            {{us.City}}
-            <br>
-          </div> -->
-          <!-- <button @click="info" style= "width:20px; height:10px;">info</button><br> -->
-          <!-- <router-link to='/profile/editprofile'><a style="color:black;font-size:20px;">Edit Profile</a></router-link> -->
         </div>
         <div class="profcol2">
           <router-view />
@@ -96,7 +82,7 @@
 
 <script>
 import products from '@/assets/data/products.json'
-// import AuthenticationService from '@/services/AuthenticationService'
+import AuthenticationService from '@/services/AuthenticationService'
 
 export default {
   name: 'Profile',
@@ -116,25 +102,16 @@ export default {
   },
   mounted () {
     this.si = localStorage.getItem('loggedin')
+    this.info()
+  },
+  methods: {
+    async info () {
+      const response = await AuthenticationService.info({
+        id: localStorage.getItem('id')
+      })
+      console.log(response.data)
+    }
   }
-  // methods: {
-  //   async info () {
-  //     const response = await AuthenticationService.info({
-  //       email: localStorage.getItem('email')
-  //     })
-  //     this.userinfo = response.data[0]
-  //     console.log(response.data[0])
-  //     // localStorage.setItem('us', response.data[0])
-  //     // console.log(this.userinfo.FirstName)
-  //     localStorage.setItem('id', this.userinfo.id)
-  //     localStorage.setItem('Name', this.userinfo.FirstName + ' ' + this.userinfo.LastName)
-  //     localStorage.setItem('Phone', this.userinfo.Phone)
-  //     localStorage.setItem('address', this.userinfo.address)
-  //     localStorage.setItem('City', this.userinfo.City)
-  //     localStorage.setItem('username', this.userinfo.username)
-  //     console.log(localStorage)
-  //   }
-  // }
 }
 </script>
 

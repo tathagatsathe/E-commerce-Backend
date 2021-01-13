@@ -135,14 +135,23 @@ app.get('/logout', (req, res) =>{
     console.log(req.session)
 })
 app.post('/profile',(req,res) =>{
-    var sq = 'SELECT id,FirstName, LastName,Phone, address, City, username FROM cust WHERE email = ?'
-    email = req.body.email
-    connection.query(sq, [email],async function(err, result, fields){
+    console.log('profile')
+    var sq = 'SELECT * FROM cart WHERE cust_id = ? LIMIT 3'
+    connection.query(sq, req.body.id,async function(err, result1, fields){
         if (err){
             throw err
         } else {
-            res.send(result)
-            // console.log(result)
+            // res.json(result1.slice(0,3))
+            var sq = 'SELECT * FROM orders WHERE cust_id = ? LIMIT 3'
+            connection.query(sq, req.body.id, async function(err, result2, fields){
+                if (err){
+                    throw err
+                } else {
+                    const result = [...result1, ...result2]
+                    // console.log(result)
+                    res.json(result)
+                }
+            })
         }
     })
 })
