@@ -4,33 +4,35 @@
     <body>
       <div class="psearchcol">
         <div class="psearchcol1">
-          <strong>Price Range</strong>
-          <br>
-          <form action="#">
+          <div style="margin: 20px 5px">
+            <strong>Search</strong>
+            <br>
             <input
-              id="price1"
-              type="checkbox"
-              name="price1"
-            >
-            <label for="price1"> Under 1000</label><br>
+              v-model="brand"
+              type="text"
+              placeholder="search by keyword"
+            ><br>
+          </div>
+          <div style="margin: 20px 5px">
+            <strong>Sort By Price</strong><br>
             <input
-              id="price2"
-              type="checkbox"
-              name="price2"
+              type="radio"
+              name="sort"
+              @click="ascending"
             >
-            <label for="price2"> 1000 - 5000</label><br>
+            <label for="Ascending">Low to High</label><br>
             <input
-              id="price3"
-              type="checkbox"
-              name="price3"
+              type="radio"
+              name="sort"
+              @click="descending"
             >
-            <label for="price3"> Above 5000</label><br><br>
-          </form>
+            <label for="Descending">High to Low</label><br>
+          </div>
         </div>
         <div style="text-decoration:none;color:black">
           <div class="psearchcol2">
             <div
-              v-for="product in product"
+              v-for="product in brandfilter"
               :key="product.prod_id"
               class="psearchrows"
             >
@@ -64,15 +66,22 @@
 </template>
 
 <script>
-import products from '@/assets/data/products.json'
+// import products from '@/assets/data/products.json'
 import AuthenticationService from '@/services/AuthenticationService'
 
 export default {
   name: 'PrSearch',
   data () {
     return {
-      products: products,
-      product: []
+      products: [],
+      brand: ''
+    }
+  },
+  computed: {
+    brandfilter: function () {
+      return this.products.filter((product) => {
+        return product.ProductName.toUpperCase().match(this.brand.toUpperCase())
+      })
     }
   },
   mounted () {
@@ -81,10 +90,13 @@ export default {
   methods: {
     async search () {
       const response = await AuthenticationService.prodsearch(this.$route.query.search)
-      console.log(response.data)
-      console.log(this.$route.query.search)
-      this.product = response.data
-      console.log(this.product[0])
+      this.products = response.data
+    },
+    ascending () {
+      this.products.sort((a, b) => (a.Price > b.Price) ? 1 : -1)
+    },
+    descending () {
+      this.products.sort((a, b) => (a.Price < b.Price) ? 1 : -1)
     }
   }
 }
@@ -137,16 +149,11 @@ export default {
     margin: auto !important;
     border-radius: 2x;
     max-width: 100%;
-    /* border: 2px solid red; */
-    /* margin-right: 50px; */
-    /* box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 }
 .searchimage {
   width: 30%;
-  /* border: 2px solid green; */
   height: 100%;
   float: left;
-  /* padding: 5px 0px 5px 0px; */
 }
 .psearchtext {
   float: right;
@@ -166,5 +173,8 @@ export default {
     width: 500px;
     padding-bottom: 2%;
     font-size: 30px;
+    display: block;
+    max-height: 40%;
+    overflow: hidden;
 }
 </style>

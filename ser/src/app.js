@@ -30,8 +30,8 @@ app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(cors({
     origin: [
-        'http://localhost:8084',
-        'https://localhost:8084'
+        'http://localhost:8080',
+        'https://localhost:8080'
     ],
       credentials: true,
       exposedHeaders: ['set-cookie']
@@ -56,7 +56,6 @@ app.get('/', (req,res,next) => {
                         throw err
                     } else {
                         const reslt = [...results, ...result, ...resultf]
-                        console.log(reslt)
                         res.send(reslt)
                     }
                 })
@@ -79,8 +78,7 @@ app.post('/register', (req, res) => {
             throw err
         }
         else {
-            console.log(result)
-            console.log(result[0])
+            console.log('Stored Email')
         }
     })
     bcrypt.hash(password, 10, (err2, hash) => {
@@ -93,7 +91,7 @@ app.post('/register', (req, res) => {
         connection.query(qu, values, function(err3, res3){
             if(err3) throw err3;
             else {
-                console.log("Stored!")
+                console.log("Stored password!")
                 res.send(true)
             }
         })
@@ -111,7 +109,7 @@ app.post('/login', (req, res) => {
             else if (result.length > 0){
                 const match = await bcrypt.compare(password, result[0].password)
                 if(match) {
-                    console.log(result[0].id)
+                    // console.log(result[0].id)
                     res.json(result[0])
                 }
                 else {
@@ -120,7 +118,7 @@ app.post('/login', (req, res) => {
                 // console.log(match)
             }
             else{
-                console.log('Email does not exist')
+                // console.log('Email does not exist')
                 res.send('Email does not exist')
             }
         })
@@ -144,7 +142,7 @@ app.post('/profile',(req,res) =>{
             throw err
         } else {
             res.send(result)
-            console.log(result)
+            // console.log(result)
         }
     })
 })
@@ -162,7 +160,7 @@ app.post('/editprofile',(req,res) =>{
             throw err
         } else {
             res.send(result)
-            console.log(result)
+            // console.log(result)
         }
     })
 })
@@ -182,7 +180,7 @@ app.post('/addproduct',(req,res) =>{
             throw err
         } else {
             res.send(result)
-            console.log(result)
+            // console.log(result)
         }
     })
 })
@@ -254,7 +252,7 @@ app.get('/productsearch',(req,res) =>{
             throw err
         } else {
             res.json(result)
-            console.log(result.length)
+            // console.log(result.length)
         }
     })
     // res.send(resu)
@@ -328,14 +326,14 @@ app.post('/profile/cart',(req,res,next) =>{
     if(Number(req.body.id)) {
         console.log('get cart')
         var cust_id = req.body.id
-        console.log(req.body.id)
+        // console.log(req.body.id)
         var sq = 'SELECT * FROM cart WHERE cust_id = ?'
         connection.query(sq, cust_id,async function(err, result, fields){
             if (err){
                 throw err
             } else {
                 res.json(result)
-                console.log(result)
+                // console.log(result)
             }
         })
     } else {
@@ -345,14 +343,14 @@ app.post('/profile/cart',(req,res,next) =>{
 app.post('/profile/cart', (req,res) => {
     console.log('remove from cart')
         var cart_id = req.body.cart_id
-        console.log(cart_id)
+        // console.log(cart_id)
         var sq = 'DELETE FROM cart WHERE cart_id = ?'
         connection.query(sq, cart_id,async function(err, result, fields){
             if (err){
                 throw err
             } else {
                 res.json(result)
-                console.log(result)
+                // console.log(result)
             }
         })
 })
@@ -363,7 +361,7 @@ app.post('/profile/orders', (req,res) => {
             throw err
         } else {
             res.send(result)
-            console.log(result)
+            // console.log(result)
         }
     })
 })
@@ -375,7 +373,7 @@ app.get('/profile/orders/:orderid', (req,res) => {
             throw err
         } else {
             res.send(result)
-            console.log(result)
+            // console.log(result)
         }
     })
 })
