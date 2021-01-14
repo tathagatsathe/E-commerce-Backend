@@ -128,12 +128,12 @@ app.post('/login', (req, res) => {
     })
     // console.log(req.session)
 })
-app.get('/logout', (req, res) =>{
-    console.log(session)
-    console.log(req.session.email)
-    req.session.destroy()
-    console.log(req.session)
-})
+// app.get('/logout', (req, res) =>{
+//     console.log(session)
+//     console.log(req.session.email)
+//     req.session.destroy()
+//     console.log(req.session)
+// })
 app.post('/profile',(req,res) =>{
     console.log('profile')
     var sq = 'SELECT * FROM cart WHERE cust_id = ? LIMIT 3'
