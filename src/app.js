@@ -8,6 +8,12 @@ var bcrypt = require('bcrypt')
 var session = require('express-session')
 // var router = require('express-router')
 
+const app= express()
+
+app.get('/', (req, res) => {
+  res.send('HEY!')
+})
+
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -18,7 +24,7 @@ connection.connect(function(err) {
     if (err) throw err;
     else console.log('Connected to the MySQL server')
 })
-const app= express()
+
 var cookieParser = require('cookie-parser');
 app.use(session({
     secret: 'mkdslfdsbhdans',
@@ -28,14 +34,7 @@ app.use(session({
 app.use(morgan('combine'))
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({ extended: true }));
-app.use(cors({
-    origin: [
-        'http://localhost:8080',
-        'https://localhost:8080'
-    ],
-      credentials: true,
-      exposedHeaders: ['set-cookie']
-}))
+app.use(cors())
 
 app.get('/', (req,res,next) => {
     var sq = 'SELECT * FROM prod WHERE Category LIKE "%"?"%" LIMIT 5'
