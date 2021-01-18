@@ -10,10 +10,6 @@ var session = require('express-session')
 
 const app= express()
 
-app.get('/', (req, res) => {
-  res.send('HEY!')
-})
-
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
