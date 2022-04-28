@@ -1,7 +1,7 @@
 module.exports = {
   apps : [{
     name   : "server",
-    script : "./app.js"
+    script : "./src/app.js"
   }],
   deploy: {
     production: {
